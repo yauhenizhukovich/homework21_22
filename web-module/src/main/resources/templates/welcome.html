@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome page</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<a href="#" th:href="@{/items}">Show all items</a><br>
+<a href="#" th:href="@{/shops}">Show all shops</a><br>
+<a href="#" th:href="@{/shops/add}">Add shop</a><br>
+<a href="#" th:href="@{/items/add}">Add item</a>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>
