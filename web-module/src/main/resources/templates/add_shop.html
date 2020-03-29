@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add shop</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<form action="#" th:action="@{/shops/add}" method="post" th:object="${shop}">
+    <h1>Add shop</h1>
+    Name: <input th:value="*{name}" type="text" name="name" required autofocus><br>
+    Location: <input th:value="*{location}" type="text" name="location" required><br>
+    <input type="submit" value="Add"/>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+    <div th:if="${#fields.hasErrors('location')}" th:errors="*{location}"/>
+</form>
+<a href="#" th:href="@{/shops}">Show all shops</a><br>
+<a href="#" th:href="@{/}">Back to welcome page</a><br>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>
