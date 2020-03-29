@@ -66,13 +66,12 @@ public class ItemDetails {
         }
         ItemDetails that = (ItemDetails) o;
         return Objects.equals(itemId, that.itemId) &&
-                Objects.equals(price, that.price) &&
-                Objects.equals(item, that.item);
+                Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(itemId, price, item);
+        return Objects.hash(itemId, price);
     }
 
 }

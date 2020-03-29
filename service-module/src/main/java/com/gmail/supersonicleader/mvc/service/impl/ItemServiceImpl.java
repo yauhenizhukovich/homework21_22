@@ -1,7 +1,10 @@
 package com.gmail.supersonicleader.mvc.service.impl;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.gmail.supersonicleader.mvc.repository.ItemRepository;
@@ -32,18 +35,25 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public List<FindAllItemDTO> findAllItems() {
         List<Item> items = itemRepository.findAll();
-        List<FindAllItemDTO> itemsDTO = items.stream()
+        return items.stream()
                 .map(this::convertItemToDTOToFindAll)
                 .collect(Collectors.toList());
-        return itemsDTO;
+    }
+
+    @Override
+    @Transactional
+    public List<FindAllItemDTO> findFilteredItems(String name, BigDecimal minPrice, BigDecimal maxPrice) {
+        List<Item> items = getItems(name, minPrice, maxPrice);
+        return items.stream()
+                .map(this::convertItemToDTOToFindAll)
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public GetItemDTO getItemWithLinkedShopById(Long id) {
         Item item = itemRepository.findById(id);
-        GetItemDTO itemDTO = convertItemToDTOToGet(item);
-        return itemDTO;
+        return convertItemToDTOToGet(item);
     }
 
     @Override
@@ -58,6 +68,41 @@ public class ItemServiceImpl implements ItemService {
     public void deleteItemById(Long id) {
         Item item = itemRepository.findById(id);
         itemRepository.delete(item);
+    }
+
+    private List<Item> getItems(String name, BigDecimal minPrice, BigDecimal maxPrice) {
+        List<Item> items;
+        if (name.equals("")) {
+            if (minPrice == null && maxPrice == null) {
+                items = itemRepository.findAll();
+            } else {
+                items = getItemsByPriceRange(minPrice, maxPrice);
+            }
+        } else {
+            if (minPrice == null && maxPrice == null) {
+                items = itemRepository.getItemsByName(name);
+            } else {
+                items = getItemsByNameAndPriceRange(name, minPrice, maxPrice);
+            }
+        }
+        return items;
+    }
+
+    private List<Item> getItemsByPriceRange(BigDecimal minPrice, BigDecimal maxPrice) {
+        List<Item> items;
+        List<ItemDetails> itemsDetails = itemRepository.getItemDetailsByPriceRange(minPrice, maxPrice);
+        items = itemsDetails.stream().map(itemRepository::getItemByItemDetails)
+                .collect(Collectors.toList());
+        return items;
+    }
+
+    private List<Item> getItemsByNameAndPriceRange(String name, BigDecimal minPrice, BigDecimal maxPrice) {
+        List<Item> items;
+        List<ItemDetails> itemsDetails = itemRepository.getItemDetailsByPriceRange(minPrice, maxPrice);
+        items = itemsDetails.stream().map(details -> itemRepository.getItemByNameAndItemDetails(name, details))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        return items;
     }
 
     private FindAllItemDTO convertItemToDTOToFindAll(Item item) {
@@ -126,10 +171,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     private List<Shop> getShopsForDatabaseObject(AddItemDTO itemDTO) {
-        List<Long> shopIds = itemDTO.getShopIds();
-        return shopIds.stream()
-                .map(shopRepository::findById)
-                .collect(Collectors.toList());
+        Long[] shopIds = itemDTO.getShopIds();
+        if (shopIds != null) {
+            return Arrays.stream(shopIds)
+                    .map(shopRepository::findById)
+                    .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
     }
 
     private ShopDTO convertShopToDTO(Shop shop) {

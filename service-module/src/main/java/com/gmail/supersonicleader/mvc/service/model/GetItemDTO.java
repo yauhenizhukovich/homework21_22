@@ -1,6 +1,7 @@
 package com.gmail.supersonicleader.mvc.service.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GetItemDTO {
@@ -9,7 +10,7 @@ public class GetItemDTO {
     private String name;
     private String description;
     private BigDecimal price;
-    private List<ShopDTO> shops;
+    private List<ShopDTO> shops = new ArrayList<>();
 
     public Long getId() {
         return id;
