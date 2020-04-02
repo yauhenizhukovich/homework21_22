@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add item</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<form action="#" th:action="@{/items/add}" method="post" th:object="${item}">
+    <h1>Add item</h1>
+    Name: <input th:value="*{name}" type="text" name="name" required autofocus><br>
+    Description: <input th:value="*{description}" type="text" name="description" required><br>
+    Price: <input th:value="*{price}" type="text" pattern="^[\d]*[\.]?[\d]*$" name="price" required><br>
+    <div th:if="${not #lists.isEmpty(shops)}">
+        Select shops to place the item:
+        <div th:each="shop : ${shops}">
+            <input type="checkbox" th:text="${shop.name + ', ' + shop.location}" name="shopIds" th:value="${shop.id}"><br>
+        </div>
+    </div>
+    <div th:unless="${not #lists.isEmpty(shops)}">
+        You cannot select shops to place the item, because of no shops founded.
+    </div>
+    <input type="submit" value="Add"/>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+    <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"/>
+    <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}"/>
+</form>
+<a href="#" th:href="@{/items}">Show all items</a><br>
+<a href="#" th:href="@{/welcome}">Back to welcome page</a><br>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>

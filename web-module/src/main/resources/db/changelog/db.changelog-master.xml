@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="1" author="supersonicleader@gmail.com">
+        <createTable tableName="item">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(40)"/>
+            <column name="description" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="supersonicleader@gmail.com">
+        <createTable tableName="item_details">
+            <column name="item_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="item_id" references="item(id)"/>
+            </column>
+            <column name="price" type="DECIMAL(8,3)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="supersonicleader@gmail.com">
+        <createTable tableName="shop">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(40)"/>
+            <column name="location" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="supersonicleader@gmail.com">
+        <createTable tableName="item_shop">
+            <column name="item_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" foreignKeyName="fk_item_id" references="item(id)"/>
+            </column>
+            <column name="shop_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" foreignKeyName="fk_shop_id" references="shop(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="supersonicleader@gmail.com">
+        <createTable tableName="user">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="username" type="VARCHAR(13)">
+                <constraints unique="true"/>
+            </column>
+            <column name="password" type="CHAR(60)"/>
+            <column name="role" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="supersonicleader@gmail.com">
+        <insert tableName="user">
+            <column name="username" value="admin"/>
+            <column name="password" value="$2y$12$dLpIrUlVlqyrru6sO6XZduHqPKQjQ1BjiY8hNFoitT82sKVE3Ejxi"/>
+            <column name="role" value="ADMIN"/>
+        </insert>
+    </changeSet>
+    <changeSet id="7" author="supersonicleader@gmail.com">
+        <insert tableName="user">
+            <column name="username" value="user"/>
+            <column name="password" value="$2y$12$M4BX8GkslLLSWxpte.yy1ueWZbDaNk8DzHs6qb0GGEppXEKVKU8WW"/>
+            <column name="role" value="USER"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
