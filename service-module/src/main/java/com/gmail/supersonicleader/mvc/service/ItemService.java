@@ -1,5 +1,6 @@
 package com.gmail.supersonicleader.mvc.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.gmail.supersonicleader.mvc.service.model.AddItemDTO;
@@ -15,5 +16,7 @@ public interface ItemService {
     void addItemWithLinkedShop(AddItemDTO item);
 
     void deleteItemById(Long id);
+
+    List<FindAllItemDTO> findFilteredItems(String name, BigDecimal minPrice, BigDecimal maxPrice);
 
 }

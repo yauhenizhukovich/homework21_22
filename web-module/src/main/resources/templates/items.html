@@ -32,8 +32,15 @@
 <div th:unless="${not #lists.isEmpty(items)}">
     There are no items
 </div>
+<form action="#" th:action="@{/items/filter(name=${name}, minPrice=${minPrice}, maxPrice=${maxPrice})}" method="get">
+    <div>Filter items by:</div>
+    name <input type="text" name="name" placeholder="Name" th:default="null"/>
+    price <input type="text" pattern="^[\d]*[\.]?[\d]*$" name="minPrice" placeholder="Minimum price" th:default="null"/>
+    <input type="text" pattern="^[\d]*[\.]?[\d]*$" name="maxPrice" placeholder="Maximum price" th:default="null"/>
+    <input type="submit" value="Find"/>
+</form>
 <a href="#" th:href="@{/items/add}">Add item</a><br>
-<a href="#" th:href="@{/}">Back to welcome page</a><br>
+<a href="#" th:href="@{/welcome}">Back to welcome page</a><br>
 <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
 </body>

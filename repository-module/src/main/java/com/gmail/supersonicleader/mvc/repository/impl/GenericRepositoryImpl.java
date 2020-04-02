@@ -14,12 +14,24 @@ public abstract class GenericRepositoryImpl<I, T> implements GenericRepository<I
     @PersistenceContext
     protected EntityManager entityManager;
 
+    @SuppressWarnings("unchecked")
     public GenericRepositoryImpl() {
         ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
         this.entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[1];
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public List<T> getObjectsByPage(int startPosition, int maxResult) {
+        String queryString = "FROM " + entityClass.getSimpleName();
+        Query query = entityManager.createQuery(queryString);
+        query.setFirstResult(startPosition);
+        query.setMaxResults(maxResult);
+        return query.getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
     public List<T> findAll() {
         String query = "from " + entityClass.getName() + " c";
         Query q = entityManager.createQuery(query);

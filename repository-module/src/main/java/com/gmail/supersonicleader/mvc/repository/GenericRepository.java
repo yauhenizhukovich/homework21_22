@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface GenericRepository<I, T> {
 
+    List<T> getObjectsByPage(int startPosition, int maxResult);
+
     List<T> findAll();
 
     T findById(I id);

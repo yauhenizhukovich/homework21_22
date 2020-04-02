@@ -4,18 +4,18 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import static com.gmail.supersonicleader.mvc.service.constant.ShopDTOConstant.LOCATION_REGEXP;
-import static com.gmail.supersonicleader.mvc.service.constant.ShopDTOConstant.LOCATION_REGEXP_MESSAGE;
-import static com.gmail.supersonicleader.mvc.service.constant.ShopDTOConstant.LOCATION_SIZE_MESSAGE;
-import static com.gmail.supersonicleader.mvc.service.constant.ShopDTOConstant.MAX_LOCATION_SIZE;
-import static com.gmail.supersonicleader.mvc.service.constant.ShopDTOConstant.MAX_NAME_SIZE;
-import static com.gmail.supersonicleader.mvc.service.constant.ShopDTOConstant.MIN_LOCATION_SIZE;
-import static com.gmail.supersonicleader.mvc.service.constant.ShopDTOConstant.MIN_NAME_SIZE;
-import static com.gmail.supersonicleader.mvc.service.constant.ShopDTOConstant.NAME_REGEXP;
-import static com.gmail.supersonicleader.mvc.service.constant.ShopDTOConstant.NAME_REGEXP_MESSAGE;
-import static com.gmail.supersonicleader.mvc.service.constant.ShopDTOConstant.NAME_SIZE_MESSAGE;
-import static com.gmail.supersonicleader.mvc.service.constant.ShopDTOConstant.NOT_NULL_LOCATION_MESSAGE;
-import static com.gmail.supersonicleader.mvc.service.constant.ShopDTOConstant.NOT_NULL_NAME_MESSAGE;
+import static com.gmail.supersonicleader.mvc.service.constant.ShopValidationMessages.LOCATION_REGEXP_MESSAGE;
+import static com.gmail.supersonicleader.mvc.service.constant.ShopValidationMessages.LOCATION_SIZE_MESSAGE;
+import static com.gmail.supersonicleader.mvc.service.constant.ShopValidationMessages.NAME_REGEXP_MESSAGE;
+import static com.gmail.supersonicleader.mvc.service.constant.ShopValidationMessages.NAME_SIZE_MESSAGE;
+import static com.gmail.supersonicleader.mvc.service.constant.ShopValidationMessages.NOT_NULL_LOCATION_MESSAGE;
+import static com.gmail.supersonicleader.mvc.service.constant.ShopValidationMessages.NOT_NULL_NAME_MESSAGE;
+import static com.gmail.supersonicleader.mvc.service.constant.ShopValidationRules.LOCATION_REGEXP;
+import static com.gmail.supersonicleader.mvc.service.constant.ShopValidationRules.MAX_LOCATION_SIZE;
+import static com.gmail.supersonicleader.mvc.service.constant.ShopValidationRules.MAX_NAME_SIZE;
+import static com.gmail.supersonicleader.mvc.service.constant.ShopValidationRules.MIN_LOCATION_SIZE;
+import static com.gmail.supersonicleader.mvc.service.constant.ShopValidationRules.MIN_NAME_SIZE;
+import static com.gmail.supersonicleader.mvc.service.constant.ShopValidationRules.NAME_REGEXP;
 
 public class ShopDTO {
 

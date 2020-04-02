@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <form action="#" th:action="@{/users/register}" method="post" th:object="${user}">
+                <fieldset>
+                    <h1>Register page</h1>
+                    <div class="form-group">
+                        Username: <input class="form-control input-lg" type="text" name="username" th:value="*{username}" required
+                                         autofocus>
+                    </div>
+                    <div class="form-group">
+                        Password: <input class="form-control input-lg" type="password" name="password" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign in"/>
+                        </div>
+                    </div>
+                    <div th:if="${message ne null}" th:text="${message}">User with this username already exists</div>
+                    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
+                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+</body>
+</html>

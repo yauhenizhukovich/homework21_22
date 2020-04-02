@@ -23,11 +23,19 @@
         </tbody>
     </table>
 </div>
+<form action="#" th:action="@{/shops/filter(location=${location})}" method="get">
+    <div>Filter shops by:</div>
+    location <input type="text" name="location" placeholder="Location"/>
+    <input type="submit" value="Find"/>
+</form>
 <div th:unless="${not #lists.isEmpty(shops)}">
     There are no shops
 </div>
+<div th:if="${pageNumbers ne null}" th:each="page : ${pageNumbers}">
+    <a th:href="@{/shops(pageNumber=${page})}" th:text="${page}"></a>
+</div>
 <a href="#" th:href="@{/shops/add}">Add shop</a><br>
-<a href="#" th:href="@{/}">Back to welcome page</a><br>
+<a href="#" th:href="@{/welcome}">Back to welcome page</a><br>
 <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
 </body>

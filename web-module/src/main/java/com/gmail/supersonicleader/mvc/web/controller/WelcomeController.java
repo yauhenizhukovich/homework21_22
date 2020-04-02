@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WelcomeController {
 
     @GetMapping
+    public String login() {
+        return "redirect:/users/login";
+    }
+
+    @GetMapping("/welcome")
     public String getWelcomePage() {
         return "welcome";
     }

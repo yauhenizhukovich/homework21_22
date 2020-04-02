@@ -10,6 +10,9 @@
 <a href="#" th:href="@{/shops}">Show all shops</a><br>
 <a href="#" th:href="@{/shops/add}">Add shop</a><br>
 <a href="#" th:href="@{/items/add}">Add item</a>
+<div th:if="${(param.message != null)}" th:text="${param.message}">
+    No access
+</div>
 <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
 </body>

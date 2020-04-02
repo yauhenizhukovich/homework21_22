@@ -1,8 +1,7 @@
 package com.gmail.supersonicleader.mvc.web.controller;
 
-import java.util.Arrays;
+import java.math.BigDecimal;
 import java.util.List;
-
 import javax.validation.Valid;
 
 import com.gmail.supersonicleader.mvc.service.ItemService;
@@ -40,6 +39,18 @@ public class ItemController {
         return "items";
     }
 
+    @GetMapping("/filter")
+    public String getFilteredItems(
+            @RequestParam String name,
+            @RequestParam BigDecimal minPrice,
+            @RequestParam BigDecimal maxPrice,
+            Model model
+    ) {
+        List<FindAllItemDTO> items = itemService.findFilteredItems(name, minPrice, maxPrice);
+        model.addAttribute("items", items);
+        return "items";
+    }
+
     @GetMapping("/add")
     public String addItemWithLinkedShop(Model model) {
         List<ShopDTO> shops = shopService.findAllShops();
@@ -51,16 +62,15 @@ public class ItemController {
     @PostMapping("/add")
     public String addItemWithLinkedShop(
             @ModelAttribute(name = "item") @Valid AddItemDTO item,
-            @RequestParam Long[] shopIds,
             BindingResult bindingResult,
             Model model
     ) {
         if (bindingResult.hasErrors()) {
+            List<ShopDTO> shops = shopService.findAllShops();
+            model.addAttribute("shops", shops);
             model.addAttribute("item", item);
             return "add_item";
         } else {
-            List<Long> shopsIds = Arrays.asList(shopIds);
-            item.setShopsIds(shopsIds);
             itemService.addItemWithLinkedShop(item);
             return "redirect:/items";
         }
